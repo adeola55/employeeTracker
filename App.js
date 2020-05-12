@@ -49,6 +49,15 @@ function allEmployees(){
    displayMenu() 
   })
 }
+function allDepartments(){
+  connection.query("select * from department", function(err,result){
+    if (err) throw err 
+    console.log("department Results");
+    console.log("======================================")
+    console.table(result)
+   displayMenu() 
+  })
+}
 function addEmployees(){
   inquirer.prompt(
     [
