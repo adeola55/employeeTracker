@@ -64,6 +64,15 @@ function allDepartments(){
    displayMenu() 
   })
 }
+function allRoles(){
+  connection.query("select * from empRole", function(err,result){
+    if (err) throw err 
+    console.log("Roles Results");
+    console.log("======================================")
+    console.table(result)
+   displayMenu() 
+  })
+}
 function addEmployees(){
   inquirer.prompt(
     [
