@@ -33,6 +33,12 @@ function displayMenu(){
       case "add employee":
         addEmployees();
         break;
+      case "add department":
+        addDepartments();
+        break;
+      case "add role":
+        addRoles();
+        break;
       default:
       connection.end()
       process.exit(0)
@@ -89,6 +95,24 @@ function addEmployees(){
     [response.first_name,response.last_name, response.role_id, response.manager_id],function(err,data){
       if (err) throw err
       console.log("employee data added")
+      displayMenu()
+    })
+  })
+}
+function addDepartments(){
+  inquirer.prompt(
+    [
+      {
+        type: "input",
+        name: "name",
+        message: "employees department"
+      }
+    ]
+  ).then(function(response){
+    connection.query("insert into department (name) values (?);",
+    [response.name],function(err,data){
+      if (err) throw err
+      console.log("department data added")
       displayMenu()
     })
   })
