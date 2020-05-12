@@ -126,3 +126,33 @@ function addDepartments(){
     })
   })
 }
+function addRoles(){
+  inquirer.prompt(
+    [
+      {
+        type: "list",
+        name: "title",
+        choices: ["Manager", "Production Engineer", "Systems Engineer", "Team Lead"],
+        message: "employee title"
+      },
+      {
+        type: "input",
+        name: "salary",
+        message: "employee salary"
+      },
+      {
+        type: "list",
+        name: "department_id",
+        choices: [1,2,3],
+        message: "employee Role ID"
+      }
+    ]
+  ).then(function(response){
+    connection.query("insert into empRole (title,salary, department_id) values (?,?,?);",
+    [response.title,response.salary, response.department_id],function(err,data){
+      if (err) throw err
+      console.log("role data added")
+      displayMenu()
+    })
+  })
+}
