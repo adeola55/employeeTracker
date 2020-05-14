@@ -17,7 +17,7 @@ function displayMenu(){
     name:"userchoice",
   
     type: "list",
-    choices: ["view employees", "view departments","view roles","add employee", "add department","add role","Exit App"],
+    choices: ["view employees", "view departments","view roles","add employee", "add department","add role","update Employee Role","Exit App"],
   }
   ]).then(function(response){
     switch(response.userchoice){
@@ -38,6 +38,9 @@ function displayMenu(){
         break;
       case "add role":
         addRoles();
+        break;
+      case "update Employee Role":
+        updateEmprole();
         break;
       default:
       connection.end()
@@ -130,9 +133,8 @@ function addRoles(){
   inquirer.prompt(
     [
       {
-        type: "list",
+        type: "input",
         name: "title",
-        choices: ["Manager", "Production Engineer", "Systems Engineer", "Team Lead"],
         message: "employee title"
       },
       {
@@ -143,7 +145,7 @@ function addRoles(){
       {
         type: "list",
         name: "department_id",
-        choices: [1,2,3],
+        choices: [1,2,3,4],
         message: "employee Role ID"
       }
     ]
@@ -155,4 +157,27 @@ function addRoles(){
       displayMenu()
     })
   })
+}
+function updateEmprole(){
+  inquirer.prompt([
+    {
+      type: "list",
+      message: "select employee id",
+      choices: [1,2,3,4,5,6,7,8,9,10],
+      name: "Employeeid"
+    },
+    {
+      type: "list",
+      message: "select employee role",
+      choices: [1,2,3,4,5,6,7,8],
+      name: "role"
+    }
+  ]).then(function(response){
+    connection.query("update employee set role_id = ? where id=?;",[response.role, response.Employeeid],function(err,response){
+      if (err) throw err
+      console.log("employee role updated")
+      displayMenu()
+    })
+  })
+  
 }
